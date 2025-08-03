@@ -21,8 +21,18 @@
                         Rating: {{ $review->rating }}/5
                         <br>
                         <p>{{ $review->comment }}</p>
+
                     </div>
                 @endforeach
+                <div class="text-center mt-4">
+                    @auth
+                        <form action="{{ route('cart.store', $watch->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-success me-2">أضف للسلة</button>
+                        </form>
+                        <a href="{{ route('checkout', $watch->id) }}" class="btn btn-primary">اشتري الآن</a>
+                    @endauth
+                </div>
             </div>
             <div class="card-footer d-flex justify-content-between">
                 <a href="{{ route('watches.edit', $watch->id) }}" class="btn btn-warning">Edit</a>

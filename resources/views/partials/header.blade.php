@@ -1,38 +1,44 @@
 <div class="hero_area">
     <!-- header -->
     <header class="header_section">
-      <div class="container-fluid">
-        <nav class="navbar navbar-expand-lg custom_nav-container pt-3">
-          <a class="navbar-brand" href="{{ url('/') }}">
-            <span>WRISTORY</span>
-          </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg custom_nav-container pt-3">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <span>WRISTORY</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
-              <ul class="navbar-nav">
-                <li class="nav-item active">
-                  <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{{route("about")}}">About</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{{route("watches.index")}}">Our Watches</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{{route("contact")}}">Contact us</a>
-                </li>
-              </ul>
-             
-            </div>
-          </div>
-        </nav>
-      </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ url('/') }}">Home <span
+                                        class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('about') }}">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('watches.index') }}">Our Watches</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('contact') }}">Contact us</a>
+                            </li>
+                            @auth
+                                <a href="{{ route('cart.index') }}" class="btn btn-outline-primary ms-3">
+                                    🛒 السلة
+                                    <span class="badge bg-danger">
+                                        {{ \App\Models\Cart::where('user_id', auth()->id())->count() }}
+                                    </span>
+                                </a>
+                            @endauth
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+        </div>
     </header>
-
-   
