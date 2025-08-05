@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('title', 'Watches')
 @section('content')
-    
-<div class="bg">
-       
-    <form method="GET" action="{{ route('watches.index') }}" class="mb-4">
+
+    <div class="bg">
+
+        <form method="GET" action="{{ route('watches.index') }}" class="mb-4">
             <div class="container">
                 <div class="row justify-content-center align-items-end text-center">
                     <div class="col-md-3 mb-2">
@@ -16,9 +16,9 @@
                                     {{ $brand->name }}
                                 </option>
                             @endforeach
+
                         </select>
                     </div>
-                    
                     <div class="col-md-3 mb-2">
                         <label for="category_id" class="form-label">Category</label>
                         <select id="category_id" name="category_id" class="form-control">
@@ -29,6 +29,42 @@
                                     {{ $category->name }}
                                 </option>
                             @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <label for="price_sort" class="form-label">price</label>
+                        <select id="price_sort" name="price_sort" class="form-control">
+                            <option value="">Sort By Price</option>
+                            <option value="low_to_high" {{ $selectedPrice == 'low_to_high' ? 'selected' : '' }}>Low to High
+                            </option>
+                            <option value="high_to_low" {{ $selectedPrice == 'high_to_low' ? 'selected' : '' }}>High to Low
+                            </option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <label for="search" class="form-label">Search</label>
+                        <input type="text" id="search" name="search" class="form-control"
+                            value="{{ request('search') }}" placeholder="Enter name">
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <label for="price_min" class="form-label">Min Price</label>
+                        <input type="number" id="price_min" name="price_min" class="form-control"
+                            value="{{ request('price_min') }}">
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <label for="price_max" class="form-label">Max Price</label>
+                        <input type="number" id="price_max" name="price_max" class="form-control"
+                            value="{{ request('price_max') }}">
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <label for="date_sort" class="form-label">Sort by Date</label>
+                        <select name="date_sort" id="date_sort" class="form-control">
+                            <option value="">Sort by</option>
+                            <option value="newest" {{ request('date_sort') == 'newest' ? 'selected' : '' }}>Newest First
+                            </option>
+                            <option value="oldest" {{ request('date_sort') == 'oldest' ? 'selected' : '' }}>Oldest First
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-3 mb-2 d-flex justify-content-center">
@@ -47,7 +83,7 @@
                         Our watch brands represent a legacy of craftsmanship and innovation, offering designs that combine
                         style, precision, and durability to suit every taste.
                     </p>
-                </div> 
+                </div>
                 <div class="text-right mb-3">
                     <a href="{{ route('watches.create') }}" class="btn btn-primary">
                         + Add New Watch

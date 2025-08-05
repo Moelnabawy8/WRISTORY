@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
@@ -10,8 +10,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 
 
-Route::get('',[HomeController::class, 'index'])->name('home');
-
+Route::get('', [HomeController::class, 'index'])->name('home');
 Route::get('/contact', function () {
     return view('contact');
 })->name("contact");
@@ -34,17 +33,11 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware('auth')->group(function () {
-    
-    
-       Route::get('/checkout/success',[PaymentController::class, 'success'])->name('checkout-success');
-
-      
-    Route::get('/checkout/cancel', function(){
+    Route::get('/checkout/success', [PaymentController::class, 'success'])->name('checkout-success');
+    Route::get('/checkout/cancel', function () {
         return "Your payment was cancelled. Please try again.";
     })->name('checkout-cancel');
     Route::get('/checkout/{watch}', [PaymentController::class, 'redirectToStripe'])->name('checkout');
-   
-
 });
 
 

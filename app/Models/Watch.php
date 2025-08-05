@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use YSM\Filterable\Concerns\InteractWithFilterable;
 
 class Watch extends Model
 {
+    use InteractWithFilterable;
+    
     protected $fillable = [
         'name',
         'price',

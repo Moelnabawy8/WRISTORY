@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cbf211a72c7a1c77616ce2705072ebf8",
+    "content-hash": "6148c5890ee570f310d7cddaa6fa2434",
     "packages": [
         {
             "name": "brick/math",
@@ -6140,6 +6140,55 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "ysm/filterable",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DevYSM/filterable.git",
+                "reference": "8992e8060402f9f56b13efcae65fc999f78543e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DevYSM/filterable/zipball/8992e8060402f9f56b13efcae65fc999f78543e7",
+                "reference": "8992e8060402f9f56b13efcae65fc999f78543e7",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.0",
+                "php": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "YSM\\Filterable\\FilterableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "YSM\\Filterable\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Laravel Filterable Package for Eloquent Models",
+            "keywords": [
+                "eloquent",
+                "filterable",
+                "laravel",
+                "model",
+                "query"
+            ],
+            "support": {
+                "issues": "https://github.com/DevYSM/filterable/issues",
+                "source": "https://github.com/DevYSM/filterable/tree/1.0.0"
+            },
+            "time": "2025-07-07T20:43:28+00:00"
         }
     ],
     "packages-dev": [
