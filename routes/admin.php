@@ -2,21 +2,23 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\PasswordController;
-use App\Http\Controllers\Auth\NewPasswordController;
-use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Auth\ConfirmablePasswordController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\EmailVerificationPromptController;
-use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Admin\PasswordController;
+use App\Http\Controllers\Admin\NewPasswordController;
+use App\Http\Controllers\Admin\VerifyEmailController;
+use App\Http\Controllers\Admin\RegisteredAdminController;
+use App\Http\Controllers\Admin\PasswordResetLinkController;
+use App\Http\Controllers\Admin\ConfirmablePasswordController;
+use App\Http\Controllers\Admin\AuthenticatedSessionController;
+use App\Http\Controllers\Admin\EmailVerificationPromptController;
+use App\Http\Controllers\Admin\EmailVerificationNotificationController;
 
+
+Route::prefix("admin")->name("admin.")->group(function(){
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
+    Route::get('register', [RegisteredAdminController::class, 'create'])
         ->name('register');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::post('register', [RegisteredAdminController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
@@ -55,7 +57,7 @@ Route::middleware('auth')->group(function () {
 // مسارات تتطلب المستخدم أن يكون مسجل دخول وفعّل الإيميل
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('auth.dashboard');
+        return view('admin.dashboard');
     })->name('dashboard');
      Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
         ->name('password.confirm');
@@ -72,4 +74,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     
+});    
+
 });
+

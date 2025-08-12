@@ -2,21 +2,22 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\PasswordController;
-use App\Http\Controllers\Auth\NewPasswordController;
-use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Auth\ConfirmablePasswordController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\EmailVerificationPromptController;
-use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Seller\PasswordController;
+use App\Http\Controllers\Seller\NewPasswordController;
+use App\Http\Controllers\Seller\VerifyEmailController;
+use App\Http\Controllers\Seller\RegisteredSellerController;
+use App\Http\Controllers\Seller\PasswordResetLinkController;
+use App\Http\Controllers\Seller\ConfirmablePasswordController;
+use App\Http\Controllers\Seller\AuthenticatedSessionController;
+use App\Http\Controllers\Seller\EmailVerificationPromptController;
+use App\Http\Controllers\Seller\EmailVerificationNotificationController;
 
+Route::prefix("seller")->name("seller.")->group(function(){
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
+    Route::get('register', [RegisteredSellerController::class, 'create'])
         ->name('register');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::post('register', [RegisteredSellerController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
@@ -36,7 +37,7 @@ Route::middleware('guest')->group(function () {
         ->name('password.store');
 });
 
-// مسارات تحقق البريد للمستخدمين الذين سجلوا دخول فقط (لكن ربما لم يفعلوا بريدهم بعد)
+
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
@@ -52,10 +53,10 @@ Route::middleware('auth')->group(function () {
    
 });
 
-// مسارات تتطلب المستخدم أن يكون مسجل دخول وفعّل الإيميل
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('auth.dashboard');
+        return view('seller.dashboard');
     })->name('dashboard');
      Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
         ->name('password.confirm');
@@ -72,4 +73,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     
+});
+
 });

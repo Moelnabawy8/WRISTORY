@@ -27,13 +27,35 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('contact') }}">Contact us</a>
                             </li>
-                            @auth
-                                <a href="{{ route('cart.index') }}" class="btn btn-outline-primary ms-3">
-                                    🛒 السلة
-                                    <span class="badge bg-danger">
-                                        {{ \App\Models\Cart::where('user_id', auth()->id())->count() }}
-                                    </span>
-                                </a>
+                             @auth
+                                <!-- Dropdown User Menu -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{ Auth::user()->name }}
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                        <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                                            {{ __('Profile') }}
+                                        </a>
+                                        <form method="POST" action="{{ route('logout') }}" class="m-0">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item">
+                                                {{ __('Log Out') }}
+                                            </button>
+                                        </form>
+                                    </div>
+                                </li>
+
+                                <!-- Cart Link -->
+                                <li class="nav-item ms-3">
+                                    <a href="{{ route('cart.index') }}" class="btn btn-outline-primary">
+                                        🛒 السلة
+                                        <span class="badge bg-danger">
+                                            {{ \App\Models\Cart::where('user_id', auth()->id())->count() }}
+                                        </span>
+                                    </a>
+                                </li>
                             @endauth
                         </ul>
 
