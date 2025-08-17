@@ -88,19 +88,17 @@ class ResetUserPassword extends Notification
      * @param  mixed  $notifiable
      * @return string
      */
-   protected function resetUrl($notifiable)
-{
-    if (static::$createUrlCallback) {
-        return call_user_func(static::$createUrlCallback, $notifiable, $this->token);
+    protected function resetUrl($notifiable)
+    {
+        if (static::$createUrlCallback) {
+            return call_user_func(static::$createUrlCallback, $notifiable, $this->token);
+        }
+
+        return url(route('web.password.reset', [
+            'token' => $this->token,
+            'email' => $notifiable->getEmailForPasswordReset(),
+        ], false));
     }
-
-    $guard = method_exists($notifiable, 'guardName') ? $notifiable->guardName() : 'web';
-
-    return url(route($guard . '.password.reset', [
-        'token' => $this->token,
-        'email' => $notifiable->getEmailForPasswordReset(),
-    ], false));
-}
 
 
     /**

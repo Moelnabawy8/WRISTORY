@@ -75,26 +75,22 @@ class UserVerifyEmail extends Notification
      * @param  mixed  $notifiable
      * @return string
      */
-    protected function verificationUrl($notifiable)
-{
-    if (static::$createUrlCallback) {
-        return call_user_func(static::$createUrlCallback, $notifiable);
+     protected function verificationUrl($notifiable)
+    {
+        if (static::$createUrlCallback) {
+            return call_user_func(static::$createUrlCallback, $notifiable);
+        }
+
+        return URL::temporarySignedRoute(
+            'web.verification.verify',
+            Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
+            [
+                'id' => $notifiable->getKey(),
+                'hash' => sha1($notifiable->getEmailForVerification()),
+            ]
+        );
     }
 
-    // تحديد اسم الراوت بناءً على نوع الحارس
-    $guard = method_exists($notifiable, 'guardName') ? $notifiable->guardName() : 'web';
-
-    $routeName = $guard . '.verification.verify';
-
-    return URL::temporarySignedRoute(
-        $routeName,
-        Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
-        [
-            'id' => $notifiable->getKey(),
-            'hash' => sha1($notifiable->getEmailForVerification()),
-        ]
-    );
-}
 
     /**
      * Set a callback that should be used when creating the email verification URL.

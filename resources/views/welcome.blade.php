@@ -20,35 +20,54 @@
         @endif
     </head>
     <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-        <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
-            @if (Route::has('login'))
-                <nav class="flex items-center justify-end gap-4">
-                    @auth
-                        <a
-                            href="{{ url('/dashboard') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                        >
-                            Dashboard
-                        </a>
-                    @else
-                        <a
-                            href="{{ route('login') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
-                        >
-                            Log in
-                        </a>
+        <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6">
+    <div x-data="{ open: false }" class="relative">
+        <!-- زر القائمة -->
+        <button 
+            @click="open = !open"
+            class="w-full flex justify-between items-center px-5 py-2 bg-white dark:bg-[#1a1a1a] border border-gray-300 dark:border-gray-600 rounded-md text-[#1b1b18] dark:text-[#EDEDEC] hover:bg-gray-100 dark:hover:bg-[#2a2a2a] transition"
+        >
+            <span>  </span>
+            <svg class="w-4 h-4 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+        </button>
 
-                        @if (Route::has('register'))
-                            <a
-                                href="{{ route('register') }}"
-                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                                Register
-                            </a>
-                        @endif
-                    @endauth
-                </nav>
-            @endif
-        </header>
+         
+        <div 
+            x-show="open" 
+            @click.away="open = false"
+            x-transition
+            class="absolute mt-2 w-full bg-white dark:bg-[#1a1a1a] border border-gray-300 dark:border-gray-600 rounded-md shadow-lg z-50"
+        >
+            <!-- User -->
+            <div class="border-b border-gray-200 dark:border-gray-700">
+                <p class="px-4 py-2 text-xs text-gray-500">User</p>
+                <a href="{{ route('web.login') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#2a2a2a]">Login</a>
+                <a href="{{ route('web.register') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#2a2a2a]">Register</a>
+            </div>
+
+            <!-- Admin -->
+            <div class="border-b border-gray-200 dark:border-gray-700">
+                <p class="px-4 py-2 text-xs text-gray-500">Admin</p>
+                <a href="{{ route('admin.login') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#2a2a2a]">Login</a>
+                <a href="{{ route('admin.register') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#2a2a2a]">Register</a>
+            </div>
+
+            <!-- Seller -->
+            <div>
+                <p class="px-4 py-2 text-xs text-gray-500">Seller</p>
+                <a href="{{ route('seller.login') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#2a2a2a]">Login</a>
+                <a href="{{ route('seller.register') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#2a2a2a]">Register</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Alpine.js -->
+<script src="//unpkg.com/alpinejs" defer></script>
+
+
         <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
             <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
                 <div class="text-[13px] leading-[20px] flex-1 p-6 pb-12 lg:p-20 bg-white dark:bg-[#161615] dark:text-[#EDEDEC] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] rounded-bl-lg rounded-br-lg lg:rounded-tl-lg lg:rounded-br-none">

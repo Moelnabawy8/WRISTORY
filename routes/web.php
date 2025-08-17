@@ -48,7 +48,7 @@ Route::middleware("auth")->group(function () {
     Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cart.destroy');
     Route::put('/cart/{cart}/update', [CartController::class, 'update'])->name('cart.update');
 });
-Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
+
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';

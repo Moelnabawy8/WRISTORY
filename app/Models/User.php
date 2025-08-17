@@ -78,20 +78,13 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     $this->notify(new UserVerifyEmail);
 }
- /**
-     * Send the password reset notification.
-     *
-     * @param  string  $token
-     * @return void
-     */
+ 
     public function sendPasswordResetNotification(#[\SensitiveParameter] $token)
     {
         $this->notify(new ResetUserPassword($token));
     }
-    public function guardName(): string
-{
-    return 'web'; 
-}
+
+
     
     
 }

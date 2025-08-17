@@ -55,7 +55,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // مسارات تتطلب المستخدم أن يكون مسجل دخول وفعّل الإيميل
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified:admin'])->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('dashboard');

@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 
+Route::prefix("web")->name("web.")->group(function(){
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
@@ -36,7 +37,6 @@ Route::middleware('guest')->group(function () {
         ->name('password.store');
 });
 
-// مسارات تحقق البريد للمستخدمين الذين سجلوا دخول فقط (لكن ربما لم يفعلوا بريدهم بعد)
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
@@ -52,8 +52,7 @@ Route::middleware('auth')->group(function () {
    
 });
 
-// مسارات تتطلب المستخدم أن يكون مسجل دخول وفعّل الإيميل
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified:web'])->group(function () {
     Route::get('/dashboard', function () {
         return view('auth.dashboard');
     })->name('dashboard');
@@ -72,4 +71,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     
+});
 });

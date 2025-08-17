@@ -24,24 +24,15 @@ class Admin extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-     public function sendEmailVerificationNotification()
+    public function sendEmailVerificationNotification()
 {
     $this->notify(new AdminVerifyEmail);
 }
- /**
-     * Send the password reset notification.
-     *
-     * @param  string  $token
-     * @return void
-     */
+ 
     public function sendPasswordResetNotification(#[\SensitiveParameter] $token)
     {
         $this->notify(new ResetAdminPassword($token));
     }
-    public function guardName(): string
-{
-    return 'admin'; 
-}
 
     
 }

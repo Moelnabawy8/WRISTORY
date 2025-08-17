@@ -25,21 +25,11 @@ class Seller extends Authenticatable implements MustVerifyEmail
 {
     $this->notify(new SellerVerifyEmail);
 }
- /**
-     * Send the password reset notification.
-     *
-     * @param  string  $token
-     * @return void
-     */
+ 
     public function sendPasswordResetNotification(#[\SensitiveParameter] $token)
     {
         $this->notify(new ResetSellerPassword($token));
     }
-    public function guardName(): string
-{
-    return 'seller'; 
-}
-    
   
 
     
