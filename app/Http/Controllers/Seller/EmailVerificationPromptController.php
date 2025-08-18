@@ -15,7 +15,7 @@ class EmailVerificationPromptController extends Controller
     public function __invoke(Request $request): RedirectResponse|View
     {
         return $request->user("seller")->hasVerifiedEmail()
-                    ? redirect()->intended(route('seller.dashboard', absolute: false))
+                    ? redirect()->intended(route('home', absolute: false))
                     : view('seller.verify-email');
     }
 }

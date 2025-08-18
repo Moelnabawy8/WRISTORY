@@ -35,8 +35,10 @@ class PaymentController extends Controller
         $brands = Brand::all();
         $selectedBrand = null;
         $selectedCategory = null;
+        $selectedPrice=null;
 
-        return view("watches.index",compact('watches', 'categories', 'brands', 'selectedBrand', 'selectedCategory'))
+
+        return view("watches.index",compact('watches', 'categories', 'brands', 'selectedBrand',"selectedPrice" ,'selectedCategory'))
             ->with('success', 'تم الدفع بنجاح');
     }
   

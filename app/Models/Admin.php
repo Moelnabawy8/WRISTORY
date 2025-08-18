@@ -14,16 +14,24 @@ class Admin extends Authenticatable implements MustVerifyEmail
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
+        "phone",
+        "email_verified_at",
+        "status",
+        "remember_token"
+
+
+       
+        
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+   
     public function sendEmailVerificationNotification()
 {
     $this->notify(new AdminVerifyEmail);

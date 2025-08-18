@@ -33,7 +33,7 @@ class RegisteredAdminController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.Admin::class],
-            'phone' => ['required', 'string', 'max:15', 'unique:'.Admin::class],
+            'phone' => ['required', 'string', 'max:15', ],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -48,6 +48,6 @@ class RegisteredAdminController extends Controller
 
         Auth::guard("admin")->login($admin);
 
-        return redirect(route('admin.login', absolute: false));
+       return redirect(route('admin.dashboard', absolute: false));
     }
 }

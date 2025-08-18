@@ -38,7 +38,7 @@ Route::middleware('guest')->group(function () {
 });
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:seller')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware(['auth', 'verified:seller'])->group(function () {
+Route::middleware(['auth:seller', 'verified:seller'])->group(function () {
     Route::get('/dashboard', function () {
         return view('seller.dashboard');
     })->name('dashboard');

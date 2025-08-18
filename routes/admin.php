@@ -39,7 +39,7 @@ Route::middleware('guest')->group(function () {
 });
 
 // مسارات تحقق البريد للمستخدمين الذين سجلوا دخول فقط (لكن ربما لم يفعلوا بريدهم بعد)
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:admin')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
@@ -55,7 +55,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // مسارات تتطلب المستخدم أن يكون مسجل دخول وفعّل الإيميل
-Route::middleware(['auth', 'verified:admin'])->group(function () {
+Route::middleware(['auth:admin', 'verified:admin'])->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('dashboard');
