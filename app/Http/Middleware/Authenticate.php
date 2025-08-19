@@ -23,7 +23,7 @@ class Authenticate extends Middleware
             }
 
             
-            return route('login');
+            return route('web.login');
         }
 
         return null;

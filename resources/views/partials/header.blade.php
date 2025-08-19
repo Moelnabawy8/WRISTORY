@@ -42,11 +42,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('contact') }}">Contact us</a>
                             </li>
-                             @if(!$guard)
-                    <!-- Guest -->
-                    <li class="nav-item"><a class="nav-link" href="{{ route('web.login') }}">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('web.register') }}">Register</a></li>
-                @else
+                            @if ($guard && $user)
                                 <!-- Dropdown User Menu -->
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"

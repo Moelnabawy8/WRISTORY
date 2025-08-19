@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
+
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\VerifyEmailController;
@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Auth\ProfileController as AuthProfileController;
 
 Route::prefix("web")->name("web.")->group(function(){
 Route::middleware('guest')->group(function () {
@@ -66,9 +67,9 @@ Route::middleware(['auth', 'verified:web'])->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::get('/profile', [AuthProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [AuthProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [AuthProfileController::class, 'destroy'])->name('profile.destroy');
 
     
 });

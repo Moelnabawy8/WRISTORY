@@ -13,7 +13,7 @@
                 <p><strong>Price:</strong>{{ $watch->price }} </p>
                 <p><strong>Brand:</strong>{{ $watch->brand->name }}</p>
                 <p><strong>Category:</strong>{{ $watch->category->name }}</p>
-                <p><strong>Review:</strong></p>
+                {{-- <p><strong>Review:</strong></p>
                 @foreach ($watch->reviews as $review)
                     <div class="mb-3">
                         <strong>{{ $review->user->name }}</strong>
@@ -23,14 +23,14 @@
                         <p>{{ $review->comment }}</p>
 
                     </div>
-                @endforeach
+                @endforeach --}}
                 <div class="text-center mt-4">
                     @auth
                         <form action="{{ route('cart.store', $watch->id) }}" method="POST" class="d-inline">
                             @csrf
-                            <button type="submit" class="btn btn-success me-2">أضف للسلة</button>
+                            <button type="submit" class="btn btn-success me-2">Add To Cart</button>
                         </form>
-                        <a href="{{ route('checkout', $watch->id) }}" class="btn btn-primary">اشتري الآن</a>
+                        <a href="{{ route('checkout', $watch->id) }}" class="btn btn-primary"> Buy Now</a>
                     @endauth
                 </div>
             </div>

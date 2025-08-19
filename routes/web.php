@@ -13,18 +13,22 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('home', [HomeController::class, 'index'])->name('home');
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
 
-Route::resource('watches', WatchController::class);
-Route::post('/watches/{watch}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
-Route::middleware('auth')->group(function () {
+Route::prefix("web")->middleware(['auth:web', 'verified:web'])->group(function () {
+    Route::get('home', [HomeController::class, 'index'])->name('home');
+    Route::get('/contact', function () {
+        return view('contact');
+    })->name('contact');
+    Route::get('/about', function () {
+        return view('about');
+    })->name('about');
+    Route::resource('watches', WatchController::class);
+    Route::post('/watches/{watch}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+});
+
+
+Route::middleware("verified:web")->group(function () {
     Route::get('/checkout/success', [PaymentController::class, 'success'])->name('checkout-success');
     Route::get('/checkout/cancel', function () {
         return view('checkout-cancel');
@@ -40,3 +44,4 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
 require __DIR__ . '/seller.php';
+require app_path('Http/Middleware/Authenticate.php');
